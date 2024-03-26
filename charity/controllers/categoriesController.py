@@ -3,7 +3,7 @@ from urllib import request
 from flask import jsonify
 from sqlalchemy.testing import db
 
-from charity.models import categories
+from charity.models.categories import Categories as categories
 
 
 class CategorieController:
@@ -13,7 +13,7 @@ class CategorieController:
     def create(self):
         try:
             data = request.get_json()
-            nouvelle_categorie = self.categories_model(libelle=data['libelle'])
+            nouvelle_categorie = self.categories_model(libelle=data['libelle'], description=data['description'])
             db.session.add(nouvelle_categorie)
             db.session.commit()
             return jsonify({' message': 'Nouvelle catégorie créée avec succès'}), 201
@@ -24,8 +24,8 @@ class CategorieController:
             return jsonify({'message': e}), 500
 
     def all(self):
-        categories = self.categories_model.query.all()
-        return jsonify([categorie.serialize() for categorie in categories]), 200
+        categoriesall = self.categories_model.query.all()
+        return jsonify([categorie.serialize() for categorie in categoriesall]), 200
 
     def update(self):
         try:

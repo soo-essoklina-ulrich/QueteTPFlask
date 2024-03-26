@@ -12,7 +12,7 @@ class projetController:
     def create(self):
         try:
             data = request.get_json()
-            nouveau_projet = self.projet_model(libelle=data['libelle'], description=data['description'], categorie_id=data['categorie_id'])
+            nouveau_projet = self.projet_model(libelle=data['libelle'], description=data['description'], categorie_id=data['categorie_id'], image=data['image'])
             db.session.add(nouveau_projet)
             db.session.commit()
             return jsonify({' message': 'Nouveau projet créé avec succès'}), 201

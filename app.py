@@ -7,7 +7,7 @@ from charity import charity_web, charity_api
 app = Flask(__name__)
 app.register_blueprint(charity_web, url_prefix='/charity-web')
 app.register_blueprint(charity_api, url_prefix='/charity-api')
-CORS(app, origins="*")
+CORS(app, resources={r"/charity-api/*": {"origins": "*"}})
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:123456789@localhost:3306/charity'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
